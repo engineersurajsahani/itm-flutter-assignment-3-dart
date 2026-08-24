@@ -1,13 +1,13 @@
 import 'dart:io';
 
-// Abstraction
+
 abstract class LibraryItem {
   void borrowItem();
   void returnItem();
   void displayInfo();
 }
 
-// Inheritance & Encapsulation
+
 class Book extends LibraryItem {
   String _id;
   String _title;
@@ -32,9 +32,9 @@ class Book extends LibraryItem {
   void borrowItem() {
     if (_isAvailable) {
       _isAvailable = false;
-      print('✅ Successfully borrowed "$_title".');
+      print('Successfully borrowed "$_title".');
     } else {
-      print('❌ "$_title" is currently not available.');
+      print('"$_title" is currently not available.');
     }
   }
 
@@ -42,16 +42,16 @@ class Book extends LibraryItem {
   void returnItem() {
     if (!_isAvailable) {
       _isAvailable = true;
-      print('✅ Successfully returned "$_title".');
+      print('Successfully returned "$_title".');
     } else {
-      print('ℹ️ "$_title" was not borrowed.');
+      print('ℹ"$_title" was not borrowed.');
     }
   }
 
   @override
   void displayInfo() {
-    String status = _isAvailable ? '✅ Available' : '❌ Borrowed';
-    print('📚 ID: $_id | Title: $_title | Author: $_author | Year: $_year | Status: $status');
+    String status = _isAvailable ? ' Available' : ' Borrowed';
+    print(' ID: $_id | Title: $_title | Author: $_author | Year: $_year | Status: $status');
   }
 }
 
@@ -59,7 +59,7 @@ class Library {
   final List<Book> _books = [];
 
   Library() {
-    // Sample Data
+
     _books.add(Book('B001', 'The Great Gatsby', 'F. Scott Fitzgerald', 1925));
     _books.add(Book('B002', '1984', 'George Orwell', 1949));
     _books.add(Book('B003', 'To Kill a Mockingbird', 'Harper Lee', 1960));
@@ -70,7 +70,7 @@ class Library {
   void addBook(String title, String author, int year) {
     String id = 'B${(_books.length + 1).toString().padLeft(3, '0')}';
     _books.add(Book(id, title, author, year));
-    print('✅ Book added successfully! ID is $id');
+    print('Book added successfully! ID is $id');
   }
 
   void viewAllBooks() {
@@ -78,7 +78,7 @@ class Library {
       print('No books in the library.');
       return;
     }
-    print('\n📚 === ALL BOOKS ===');
+    print('\n=== ALL BOOKS ===');
     for (var book in _books) {
       book.displayInfo();
     }
@@ -90,7 +90,7 @@ class Library {
       print('No available books.');
       return;
     }
-    print('\n✅ === AVAILABLE BOOKS ===');
+    print('\n=== AVAILABLE BOOKS ===');
     for (var book in availableBooks) {
       book.displayInfo();
     }
@@ -102,7 +102,7 @@ class Library {
       print('No borrowed books.');
       return;
     }
-    print('\n❌ === BORROWED BOOKS ===');
+    print('\n === BORROWED BOOKS ===');
     for (var book in borrowedBooks) {
       book.displayInfo();
     }
@@ -113,7 +113,7 @@ class Library {
       var book = _books.firstWhere((b) => b.id == id);
       book.borrowItem();
     } catch (e) {
-      print('❌ Book with ID $id not found.');
+      print('Book with ID $id not found.');
     }
   }
 
@@ -122,17 +122,17 @@ class Library {
       var book = _books.firstWhere((b) => b.id == id);
       book.returnItem();
     } catch (e) {
-      print('❌ Book with ID $id not found.');
+      print(' Book with ID $id not found.');
     }
   }
 
   void searchBooksByTitle(String keyword) {
     var results = _books.where((b) => b.title.toLowerCase().contains(keyword.toLowerCase())).toList();
     if (results.isEmpty) {
-      print('🔍 No books found matching "$keyword".');
+      print(' No books found matching "$keyword".');
       return;
     }
-    print('\n🔍 === SEARCH RESULTS ===');
+    print('\n=== SEARCH RESULTS ===');
     for (var book in results) {
       book.displayInfo();
     }
@@ -144,11 +144,11 @@ class Library {
     int borrowed = total - available;
     double percentage = total > 0 ? (available / total) * 100 : 0;
 
-    print('\n📊 === LIBRARY STATISTICS ===');
+    print('\n=== LIBRARY STATISTICS ===');
     print('Total Books: $total');
-    print('✅ Available: $available');
-    print('❌ Borrowed: $borrowed');
-    print('📈 Availability: ${percentage.toStringAsFixed(2)}%');
+    print(' Available: $available');
+    print(' Borrowed: $borrowed');
+    print(' Availability: ${percentage.toStringAsFixed(2)}%');
   }
 }
 
@@ -187,10 +187,10 @@ class LibraryApp {
           _library.viewStatistics();
           break;
         case '9':
-          print('🚪 Exiting... Goodbye!');
+          print(' Exiting... Goodbye!');
           return;
         default:
-          print('❌ Invalid choice. Please enter a number between 1 and 9.');
+          print(' Invalid choice. Please enter a number between 1 and 9.');
       }
       
       print('\nPress Enter to continue...');
@@ -201,21 +201,21 @@ class LibraryApp {
   void _showMenu() {
     print('''
 ============================================================
-📚 WELCOME TO THE LIBRARY MANAGEMENT SYSTEM 📚
+WELCOME TO THE LIBRARY MANAGEMENT SYSTEM 
 ============================================================
 
 ------------------------------------------------------------
-📋 MAIN MENU
+ MAIN MENU
 ------------------------------------------------------------
-1. 📚 View All Books
-2. ✅ View Available Books
-3. ❌ View Borrowed Books
-4. ➕ Add a New Book
-5. 📖 Borrow a Book
-6. ↩️  Return a Book
-7. 🔍 Search Books by Title
-8. 📊 View Library Statistics
-9. 🚪 Exit
+1.  View All Books
+2.  View Available Books
+3.  View Borrowed Books
+4.  Add a New Book
+5.  Borrow a Book
+6.  Return a Book
+7.  Search Books by Title
+8.  View Library Statistics
+9.  Exit
 ------------------------------------------------------------''');
   }
 
@@ -232,10 +232,10 @@ class LibraryApp {
       if (year != null) {
         _library.addBook(title, author, year);
       } else {
-        print('❌ Invalid year format.');
+        print(' Invalid year format.');
       }
     } else {
-      print('❌ All fields are required.');
+      print(' All fields are required.');
     }
   }
 
